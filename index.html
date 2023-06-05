@@ -69,23 +69,40 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button onclick="performLog()">Console Log</button>
+      <button onclick ="performConsoleError()">Console Error</button>
+      <button onclick ="performCount()">Console Count</button>
+      <button onclick ="performConsoleWarn()">Console Warn</button>
+      <button onclick ="performAssert()">Console Assert</button>
+      <button onclick = "performClear()">Console Clear</button>
+      <button onclick = "performDir()">Console Dir</button>
+      <button onclick = "performDirxml()">Console dirxml</button>
+      <button onclick = "performGroupStart()">Console Group Start</button>
+      <button onclick = "performGroupEnd()">Console Group End</button>
+      <button onclick = "performConsoleTable()">Console Table</button>
+      <button onclick = "startTimer()">Start Timer</button>
+      <button onclick = "endTimer()">End Timer</button>
+      <button onclick = "performTrace()">Console Trace</button>
+      <button onclick = "triggerError()">Trigger a Global Error</button>
+      
+      
     </section>
   </main>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "7e6ef11c4601499d9c6539558efedf27"
+      // for more configuration options, see https://docs.trackjs.com
+  });
+  </script>
+
+  <script>
+    function aintGonnaWork2(){
+      alert('Bad code running here'); 
+      abooM('Bad code running!'); 
+    }
+  </script>
+                        
 
   <script>
     let form = document.querySelector('form');
@@ -102,6 +119,98 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    
+    // Step 2 - Adding Buttons for Console Testing 
+    function performLog() {
+      console.log("Console log button was clicked on."); 
+    }
+    function performConsoleError() {
+      console.error("This is an error message"); 
+    }
+    function performCount() {
+      console.count(); 
+    }
+    function performConsoleWarn() {
+      console.warn("This is a warning message");
+    }
+    function performAssert() {
+      let num = 7;
+      console.assert(num == 6, "The number is not 7");
+    }
+    function performClear() {
+      console.clear(); 
+    }
+    function performDir(){
+      console.dir(document); 
+    }
+    function performDirxml() {
+      console.dirxml(document.body, "console.dirxml");  
+    }
+    function performGroupStart() {
+      console.group(); 
+    }
+    function performGroupEnd() {
+      console.groupEnd(); 
+    }
+    function performConsoleTable() {
+      console.table(["A", "B", "C" ]); 
+    }
+    function startTimer() {
+      console.time(); 
+    }
+    function endTimer(){
+      console.timeEnd(); 
+    }
+    function performTrace() {
+      console.trace(); 
+    }
+    function triggerError() {
+      throw new Error("Triggered global error.");
+    }
+
+    // Step 3- Trying Try/Catch 
+
+    function aintGonnaWork(num) {
+      if (num != 7) {
+        throw new Error("Invalid input");
+      }
+    }   
+
+    try {
+      const num = 1; 
+      aintGonnaWork(num); 
+    }catch (error) {
+      console.error("An error was triggered: ", error.message); 
+    }finally {
+      console.log("Finished try catch"); 
+    }
+
+    // Step 4 - Throw and Custom Errors 
+    
+    class BigError extends Error {
+      constructor(message) {
+        super(message); 
+        this.name = "BigError"; 
+      }
+    }
+    function testError() {
+      throw new BigError("Big error thrown!!!!"); 
+    }
+    try{
+      testError(); 
+    }catch(error){
+      alert(error.message); 
+      alert(error.name); 
+      alert(error.stack); 
+    }
+
+    // Step 5 
+    try {
+      aintGonnaWork2(); 
+    }catch (error){
+      console.log("error caught - step 5"); 
+    }
+    TrackJS.track('Testing TrackJS!');
   </script>
 </body>
 
